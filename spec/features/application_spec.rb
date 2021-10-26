@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'application' do
+
   it 'displays a link to all pets' do
     visit '/'
     expect(page).to have_content("Adopt, don't shop!")

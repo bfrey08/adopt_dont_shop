@@ -1,0 +1,7 @@
+<h1><%= @application.name %></h1>
+<h3>Address: <%= @application.address %></h3>
+<h3>Description: <%= @application.description %></h3>
+<% @application.pets.all.map do |pet| %>
+<h3>Pets applied for: <%= pet.name %> </h3>
+<% end %>
+<h3>Application status: <%= @application.status %></h3>
