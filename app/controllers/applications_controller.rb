@@ -20,6 +20,21 @@ class ApplicationsController < ApplicationController
       pet_search = params[:search].downcase
       pet_search[0] = pet_search[0].upcase!
       @pet = Pet.find_by(name: pet_search)
+    elsif params[:add] == 'yes'
+      binding.pry
+      pet_adopt = params[:pet_adopt]
+      pet_adopt[0] = pet_adopt[0].upcase
+      @pet = Pet.find_by(name: pet_adopt)
+      @application.pets << @pet
+    else
     end
+  end
+  def renew
+    #binding.pry
+
+    @application.pets << @pets
+
+    #redirect_to "/applications/new/#{application.id}"
+
   end
 end
