@@ -15,5 +15,11 @@ class ApplicationsController < ApplicationController
   end
   def new_show
     @application = Application.find(params[:id])
+    if params[:search] != nil
+
+      pet_search = params[:search].downcase
+      pet_search[0] = pet_search[0].upcase!
+      @pet = Pet.find_by(name: pet_search)
+    end
   end
 end
