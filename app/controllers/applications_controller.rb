@@ -15,23 +15,9 @@ class ApplicationsController < ApplicationController
   end
   def new_show
     @application = Application.find(params[:id])
-    if params[:search] != nil
-      pet_search = params[:search].downcase
-      pet_search[0] = pet_search[0].upcase!
-      binding.pry
-      @pet = Pet.find_by('name LIKE ?', "%#{pet_search}%")
-    elsif params[:add] == 'yes'
-      pet_adopt = params[:pet_adopt]
-      pet_adopt[0] = pet_adopt[0].upcase
-      @pet = Pet.find_by(name: pet_adopt)
-      @application.pets << @pet
-    else
-    end
-    if @application.pets.count >= 1
-      @can_submit = true
-    else
-      @can_submit = false
-    end
+    @pet = @application.search_pet(params[:search])
+    @application.add_pet(params[:add], params[:pet_adopt])
+    @can_submit = @application.is_pets?
   end
   def renew
     @application = Application.find(params[:id])
