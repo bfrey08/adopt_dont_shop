@@ -18,7 +18,8 @@ class ApplicationsController < ApplicationController
     if params[:search] != nil
       pet_search = params[:search].downcase
       pet_search[0] = pet_search[0].upcase!
-      @pet = Pet.find_by(name: pet_search)
+      binding.pry
+      @pet = Pet.find_by('name LIKE ?', "%#{pet_search}%")
     elsif params[:add] == 'yes'
       pet_adopt = params[:pet_adopt]
       pet_adopt[0] = pet_adopt[0].upcase
