@@ -16,25 +16,25 @@ class ApplicationsController < ApplicationController
   def new_show
     @application = Application.find(params[:id])
     if params[:search] != nil
-
       pet_search = params[:search].downcase
       pet_search[0] = pet_search[0].upcase!
       @pet = Pet.find_by(name: pet_search)
     elsif params[:add] == 'yes'
-      binding.pry
       pet_adopt = params[:pet_adopt]
       pet_adopt[0] = pet_adopt[0].upcase
       @pet = Pet.find_by(name: pet_adopt)
       @application.pets << @pet
     else
     end
+    if @application.pets.count >= 1
+      @can_submit = true
+    else
+      @can_submit = false
+    end
   end
   def renew
-    #binding.pry
-
-    @application.pets << @pets
-
-    #redirect_to "/applications/new/#{application.id}"
-
+    @application = Application.find(params[:id])
+    @application.update(status: "Pending")
+    redirect_to "/applications/new/#{@application.id}"
   end
 end

@@ -10,6 +10,7 @@ Pets applied for:
 <br>
 <h4> <%= @application.status %> </h4>
 <br>
+<% if @application.status == "In Progress" %>
 <h1> Add a Pet to this Application </h1>
   <%= form_with url: "/applications/new/#{@application.id}", method: :get do |f| %>
   <%= f.label :search %>
@@ -22,5 +23,14 @@ Pets applied for:
      <%= @pet.name  %>
      <%= link_to("Adopt this pet", "/applications/new/#{@application.id}?add=yes&pet_adopt=#{@pet.name}") %>
     <% end %>
+</h2>
+<br>
+<h2>
+<% if @can_submit == true %>
+    <%= form_with url: "/applications/new/#{@application.id}", method: :patch do |f| %>
+    <%= f.submit "Submit Application" %>
+    <% end %>
+  <% end %>
+<% end %>
 
 </h2>
